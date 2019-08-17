@@ -1,7 +1,8 @@
-
 NodeId = "LuaScriptEndpoint"
-
-Script = "sample-endpoint.lua"
-
 MajorId = "capture"
 MinorId = "001"
+
+[LuaModules]
+  http = true
+
+Script = "sample-endpoint.lua"

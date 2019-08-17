@@ -2,7 +2,7 @@
 --- 通过Lua执行一个截图指令,并返回截图结果文件
 ---
 
-function endpoint_main(args, frameStr)
+function endpoint_serve(args, frameStr)
     commands = { "avconv",
                  "-i", "rtsp://USER:PASSWORD@camera0.edge.irain.io/11",
                  "-t", "0.001",

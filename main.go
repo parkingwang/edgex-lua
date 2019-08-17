@@ -2,9 +2,11 @@ package main
 
 import (
 	"fmt"
+	"github.com/cjoudrey/gluahttp"
 	"github.com/nextabc-lab/edgex-go"
 	"github.com/yoojia/go-value"
 	"github.com/yuin/gopher-lua"
+	"net/http"
 )
 
 //
@@ -31,6 +33,10 @@ func main() {
 			CallStackSize: 8,
 			RegistrySize:  8,
 		})
+		luaModules := value.Of(config["LuaModules"]).MustMap()
+		if value.Of(luaModules["http"]).MustBool() {
+			script.PreloadModule("http", gluahttp.NewHttpModule(&http.Client{}).Loader)
+		}
 
 		if err := script.DoFile(scriptFile); nil != err {
 			log.Panic("加载脚本出错: ", err)
@@ -40,7 +46,7 @@ func main() {
 
 		endpoint.Serve(func(in edgex.Message) []byte {
 			// 先函数，后参数，正序入栈:
-			script.Push(script.GetGlobal("endpoint_main"))
+			script.Push(script.GetGlobal("endpoint_serve"))
 			// Arg 1
 			script.Push(lua.LString(string(in.Body())))
 			// Call
@@ -71,16 +77,16 @@ func FuncEndpointProperties(majorId string, minorId string) func() edgex.MainNod
 		return edgex.MainNodeProperties{
 			NodeType:   edgex.NodeTypeEndpoint,
 			Vendor:     "EdgeX",
-			ConnDriver: "ffmpeg/avconv",
+			ConnDriver: "Script/LUA",
 			VirtualNodes: []*edgex.VirtualNodeProperties{
 				{
 					VirtualId:   fmt.Sprintf("LUA-%s-%s", majorId, minorId),
 					MajorId:     majorId,
 					MinorId:     minorId,
-					Description: fmt.Sprintf("%s:%s-脚本抓拍驱动", majorId, minorId),
+					Description: fmt.Sprintf("%s:%s-脚本驱动", majorId, minorId),
 					Virtual:     false,
 					StateCommands: map[string]string{
-						"TRIGGER": "AT+CMD=[ffmpeg/avconv]",
+						"TRIGGER": "AT+NOP",
 					},
 				},
 			},
