@@ -1,1 +1,1 @@
-endpoint-lua
+edgenode-lua
