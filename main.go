@@ -2,11 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/cjoudrey/gluahttp"
 	"github.com/nextabc-lab/edgex-go"
 	"github.com/yoojia/go-value"
 	"github.com/yuin/gopher-lua"
-	"net/http"
 )
 
 //
@@ -33,10 +31,6 @@ func main() {
 			CallStackSize: 8,
 			RegistrySize:  8,
 		})
-		luaModules := value.Of(config["LuaModules"]).MustMap()
-		if value.Of(luaModules["http"]).MustBool() {
-			script.PreloadModule("http", gluahttp.NewHttpModule(&http.Client{}).Loader)
-		}
 
 		if err := script.DoFile(scriptFile); nil != err {
 			log.Panic("加载脚本出错: ", err)
@@ -47,10 +41,15 @@ func main() {
 		endpoint.Serve(func(in edgex.Message) []byte {
 			// 先函数，后参数，正序入栈:
 			script.Push(script.GetGlobal("endpoint_serve"))
-			// Arg 1
-			script.Push(lua.LString(string(in.Body())))
+			vnid := in.VirtualNodeId()
+			seqId := in.SequenceId()
+			body := string(in.Body())
+			// 三个参数： vnId, SeqId, Body
+			script.Push(lua.LString(vnid))
+			script.Push(lua.LNumber(seqId))
+			script.Push(lua.LString(body))
 			// Call
-			if err := script.PCall(1, 2, nil); nil != err {
+			if err := script.PCall(3, 2, nil); nil != err {
 				return []byte("EX=ERR:" + err.Error())
 			} else {
 				retData := script.ToString(1)
