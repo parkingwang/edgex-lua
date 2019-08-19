@@ -6,12 +6,12 @@ function endpoint_serve(vnid, seqid, body)
     print("接收参数, VnId: ", vnid)
     print("接收参数, SeqId: ", seqid)
     print("接收参数, Body: ", body)
-    image_path = "/tmp/IRAIN_EDGE_CAPTURE.png"
-    cap_cmd = { "avconv",
-                 "-i", "rtsp://USER:PASSWORD@camera0.edge.irain.io/11",
+    image_path = "/tmp/camera-capture"..seqid..".jpg"
+    cap_cmd = { "ffmpeg",
+                 "-i", "rtsp://admin:pass@192.168.1.4",
                  "-t", "0.001",
-                 "-f", "image2",
                  "-vframes", "1",
+                 "-loglevel", "error",
                  image_path
     }
     cap_exec = table.concat(cap_cmd, " ")
@@ -19,8 +19,8 @@ function endpoint_serve(vnid, seqid, body)
     cap_state = os.execute(cap_exec)
     if 0 == cap_state then
         upl_cmd = {
-            "curl", "http://api.edgex.io:5580/upload/" .. seqid .. "/image",
-            "-H", '"X-Token: FOO_BAR"',
+            "curl", "http://api.edgex.domain/upload/" .. seqid .. "/image",
+            "-H", '"Form-Type: file"',
             "-F", '"file=@' .. image_path .. '"',
             "-v"
         }

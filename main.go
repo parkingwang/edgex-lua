@@ -21,6 +21,9 @@ func main() {
 		if "" == majorId || "" == minorId {
 			log.Panic("未设置参数：MajorId/MinorId")
 		}
+		if "" == scriptFile {
+			log.Panic("未设置LuaScript文件")
+		}
 
 		ctx.InitialWithConfig(config)
 		endpoint := ctx.NewEndpoint(edgex.EndpointOptions{
@@ -32,12 +35,10 @@ func main() {
 			RegistrySize:  8,
 		})
 
+		log.Debug("加载脚本文件: ", scriptFile)
 		if err := script.DoFile(scriptFile); nil != err {
 			log.Panic("加载脚本出错: ", err)
-		} else {
-			log.Debug("加载脚本文件: ", scriptFile)
 		}
-
 		endpoint.Serve(func(in edgex.Message) []byte {
 			// 先函数，后参数，正序入栈:
 			script.Push(script.GetGlobal("endpoint_serve"))
