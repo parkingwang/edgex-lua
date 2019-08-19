@@ -2,10 +2,16 @@
 --- 通过Lua执行一个截图指令,并返回截图结果
 ---
 
+function startup()
+    print(">> LUA Startup")
+    os.execute("ls /tmp")
+end
+
+function shutdown()
+    print(">> LUA Shutdown")
+end
+
 function endpoint_serve(vnid, seqid, body)
-    print("接收参数, VnId: ", vnid)
-    print("接收参数, SeqId: ", seqid)
-    print("接收参数, Body: ", body)
     image_path = "/tmp/camera-capture"..seqid..".jpg"
     cap_cmd = { "ffmpeg",
                  "-i", "rtsp://admin:pass@192.168.1.4",

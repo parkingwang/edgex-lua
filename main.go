@@ -39,6 +39,20 @@ func main() {
 		if err := script.DoFile(scriptFile); nil != err {
 			log.Panic("加载脚本出错: ", err)
 		}
+
+		// startup
+		script.Push(script.GetGlobal("startup"))
+		if err := script.PCall(0, 0, nil); nil != err {
+			log.Panic("脚本Startup执行错误：", err)
+		}
+		// shutdown
+		defer func() {
+			script.Push(script.GetGlobal("shutdown"))
+			if err := script.PCall(0, 0, nil); nil != err {
+				log.Error("脚本Shutdown执行错误：", err)
+			}
+		}()
+
 		endpoint.Serve(func(in edgex.Message) []byte {
 			// 先函数，后参数，正序入栈:
 			script.Push(script.GetGlobal("endpoint_serve"))
