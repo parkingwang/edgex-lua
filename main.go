@@ -56,11 +56,11 @@ func main() {
 		endpoint.Serve(func(in edgex.Message) []byte {
 			// 先函数，后参数，正序入栈:
 			script.Push(script.GetGlobal("endpoint_serve"))
-			vnid := in.VirtualNodeId()
+			unionId := in.UnionId()
 			eventId := in.EventId()
 			body := string(in.Body())
-			// 三个参数： vnId, EventId, Body
-			script.Push(lua.LString(vnid))
+			// 三个参数： unionId, EventId, Body
+			script.Push(lua.LString(unionId))
 			script.Push(lua.LNumber(eventId))
 			script.Push(lua.LString(body))
 			// Call
@@ -94,7 +94,7 @@ func FuncEndpointProperties(majorId string, minorId string) func() edgex.MainNod
 			ConnDriver: "Script/LUA",
 			VirtualNodes: []*edgex.VirtualNodeProperties{
 				{
-					VirtualId:   fmt.Sprintf("LUA-%s-%s", majorId, minorId),
+					GroupId:     "LUA",
 					MajorId:     majorId,
 					MinorId:     minorId,
 					Description: fmt.Sprintf("%s:%s-脚本驱动", majorId, minorId),

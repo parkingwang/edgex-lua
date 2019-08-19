@@ -11,7 +11,7 @@ function shutdown()
     print(">> LUA Shutdown")
 end
 
-function endpoint_serve(vnid, eventid, body)
+function endpoint_serve(unionId, eventid, body)
     image_path = "/tmp/camera-capture"..eventid..".jpg"
     cap_cmd = { "ffmpeg",
                  "-i", "rtsp://admin:pass@192.168.1.4",
