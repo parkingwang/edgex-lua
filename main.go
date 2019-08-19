@@ -57,11 +57,11 @@ func main() {
 			// 先函数，后参数，正序入栈:
 			script.Push(script.GetGlobal("endpoint_serve"))
 			vnid := in.VirtualNodeId()
-			seqId := in.SequenceId()
+			eventId := in.EventId()
 			body := string(in.Body())
-			// 三个参数： vnId, SeqId, Body
+			// 三个参数： vnId, EventId, Body
 			script.Push(lua.LString(vnid))
-			script.Push(lua.LNumber(seqId))
+			script.Push(lua.LNumber(eventId))
 			script.Push(lua.LString(body))
 			// Call
 			if err := script.PCall(3, 2, nil); nil != err {

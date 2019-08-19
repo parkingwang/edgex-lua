@@ -11,8 +11,8 @@ function shutdown()
     print(">> LUA Shutdown")
 end
 
-function endpoint_serve(vnid, seqid, body)
-    image_path = "/tmp/camera-capture"..seqid..".jpg"
+function endpoint_serve(vnid, eventid, body)
+    image_path = "/tmp/camera-capture"..eventid..".jpg"
     cap_cmd = { "ffmpeg",
                  "-i", "rtsp://admin:pass@192.168.1.4",
                  "-t", "0.001",
@@ -25,7 +25,7 @@ function endpoint_serve(vnid, seqid, body)
     cap_state = os.execute(cap_exec)
     if 0 == cap_state then
         upl_cmd = {
-            "curl", "http://api.edgex.domain/upload/" .. seqid .. "/image",
+            "curl", "http://api.edgex.domain/upload/" .. eventid .. "/image",
             "-H", '"Form-Type: file"',
             "-F", '"file=@' .. image_path .. '"',
             "-v"
