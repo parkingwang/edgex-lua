@@ -16,10 +16,10 @@ func main() {
 		config := ctx.LoadConfig()
 		log := ctx.Log()
 		scriptFile := value.Of(config["Script"]).String()
-		majorId := value.Of(config["MajorId"]).String()
-		minorId := value.Of(config["MinorId"]).String()
-		if "" == majorId || "" == minorId {
-			log.Panic("未设置参数：MajorId/MinorId")
+		groupId := value.Of(config["GroupId"]).String()
+		majorId := value.Of(config["Major"]).String()
+		if "" == groupId || "" == majorId {
+			log.Panic("未设置参数：GroupId/MajorId")
 		}
 		if "" == scriptFile {
 			log.Panic("未设置LuaScript文件")
@@ -27,7 +27,7 @@ func main() {
 
 		ctx.InitialWithConfig(config)
 		endpoint := ctx.NewEndpoint(edgex.EndpointOptions{
-			NodePropertiesFunc: FuncEndpointProperties(majorId, minorId),
+			NodePropertiesFunc: FuncEndpointProperties(groupId, majorId),
 		})
 
 		script := lua.NewState(lua.Options{
@@ -86,7 +86,7 @@ func main() {
 }
 
 // 创建EndpointNode函数
-func FuncEndpointProperties(majorId string, minorId string) func() edgex.MainNodeProperties {
+func FuncEndpointProperties(groupId string, majorId string) func() edgex.MainNodeProperties {
 	return func() edgex.MainNodeProperties {
 		return edgex.MainNodeProperties{
 			NodeType:   edgex.NodeTypeEndpoint,
@@ -94,10 +94,10 @@ func FuncEndpointProperties(majorId string, minorId string) func() edgex.MainNod
 			ConnDriver: "Script/LUA",
 			VirtualNodes: []*edgex.VirtualNodeProperties{
 				{
-					GroupId:     "LUA",
+					GroupId:     groupId,
 					MajorId:     majorId,
-					MinorId:     minorId,
-					Description: fmt.Sprintf("%s:%s-脚本驱动", majorId, minorId),
+					MinorId:     "LUA",
+					Description: fmt.Sprintf("%s-%s-LUA驱动", groupId, majorId),
 					Virtual:     false,
 					StateCommands: map[string]string{
 						"TRIGGER": "AT+NOP",

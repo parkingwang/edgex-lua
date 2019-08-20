@@ -1,5 +1,5 @@
 NodeId = "EXN-TEST"
-MajorId = "HIK"
-MinorId = "001"
+GroupId = "HIK"
+MajorId = "001"
 
 Script = "sample-endpoint.lua"
