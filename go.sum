@@ -9,8 +9,8 @@ github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/eclipse/paho.mqtt.golang v1.2.0 h1:1F8mhG9+aO5/xpdtFkW4SxOJB67ukuDC3t2y2qayIX0=
 github.com/eclipse/paho.mqtt.golang v1.2.0/go.mod h1:H9keYFcgq3Qr5OUJm/JZI/i6U7joQ8SYLhZwfeOo6Ts=
-github.com/nextabc-lab/edgex-go v0.9.0 h1:P6YvoMw4W39ZBThWjwp22PNpRQRhpsa3l5Td7RhtnaU=
-github.com/nextabc-lab/edgex-go v0.9.0/go.mod h1:NF4kX0o+fc5f/kw2tXhJuIiDqxp6ZukJ3c4XhOBzFTc=
+github.com/nextabc-lab/edgex-go v0.9.1 h1:mzZG6Dl/PIw+loXd1MF2W6sEQp9ZGxSPyyc+n1s3XPU=
+github.com/nextabc-lab/edgex-go v0.9.1/go.mod h1:NF4kX0o+fc5f/kw2tXhJuIiDqxp6ZukJ3c4XhOBzFTc=
 github.com/pkg/errors v0.8.1 h1:iURUrRGxPUNPdy5/HRSm+Yj6okJ6UtLINN0Q9M4+h3I=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=

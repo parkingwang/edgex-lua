@@ -54,15 +54,15 @@ func main() {
 		}()
 
 		endpoint.Serve(func(in edgex.Message) []byte {
-			// 先函数，后参数，正序入栈:
-			script.Push(script.GetGlobal("endpoint_serve"))
 			unionId := in.UnionId()
 			eventId := in.EventId()
-			body := string(in.Body())
+			log.Debugf("接收到RPC控制指令: UnionId= %s, EventId= %d", unionId, eventId)
+			// 先函数，后参数，正序入栈:
+			script.Push(script.GetGlobal("endpoint_serve"))
 			// 三个参数： unionId, EventId, Body
 			script.Push(lua.LString(unionId))
 			script.Push(lua.LNumber(eventId))
-			script.Push(lua.LString(body))
+			script.Push(lua.LString(string(in.Body())))
 			// Call
 			if err := script.PCall(3, 2, nil); nil != err {
 				return []byte("EX=ERR:" + err.Error())
