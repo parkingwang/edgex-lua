@@ -17,7 +17,7 @@ func main() {
 		log := ctx.Log()
 		scriptFile := value.Of(config["Script"]).String()
 		groupId := value.Of(config["GroupId"]).String()
-		majorId := value.Of(config["Major"]).String()
+		majorId := value.Of(config["MajorId"]).String()
 		if "" == groupId || "" == majorId {
 			log.Panic("未设置参数：GroupId/MajorId")
 		}
