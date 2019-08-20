@@ -5,7 +5,7 @@ if [ "Darwin" == "$(uname -s)" ]; then
     SUDO=""
 fi
 
-OS_SUDO=${SUDO} GOOS=linux GOARCH=arm make image push
-OS_SUDO=${SUDO} GOOS=linux GOARCH=arm64 make image push
-OS_SUDO=${SUDO} GOOS=linux GOARCH=amd64 make image push
+OS_SUDO=${SUDO} GOOS=linux GOARCH=arm OSARCH=arm32v7 make image push
+OS_SUDO=${SUDO} GOOS=linux GOARCH=arm64 OSARCH=arm64v8 make image push
+OS_SUDO=${SUDO} GOOS=linux GOARCH=amd64 OSARCH=amd64 make image push
 OS_SUDO=${SUDO} GOOS=linux make manifest

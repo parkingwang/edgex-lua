@@ -3,9 +3,10 @@ BINARY?=$(shell cat name.txt)
 # Build opts
 BUILD_ENV?=CGO_ENABLED=0 GOOS=${GOOS} GOARCH=${GOARCH}
 
-IMAGE_VER?=0.3.2
+IMAGE_VER?=0.4.1
 IMAGE_ORG=registry.cn-shenzhen.aliyuncs.com/edge-x
 
+IMAGE_FROM_PLATFORM=${OSARCH}/alpine
 IMAGE_NAME_PLATFORM=${IMAGE_ORG}/${BINARY}:${IMAGE_VER}-${GOOS}_${GOARCH}
 IMAGE_NAME_VERSION=${IMAGE_ORG}/${BINARY}:${IMAGE_VER}
 
@@ -29,7 +30,7 @@ image: _build_image
 
 # 构建Image
 _build_image: build
-	${DOCKER_EXEC} build -t $(IMAGE_NAME_PLATFORM) .
+	${DOCKER_EXEC} build --build-arg ARCH_IMAGE=${IMAGE_FROM_PLATFORM} -t $(IMAGE_NAME_PLATFORM) .
 
 # 推送Image到Registry
 push:
