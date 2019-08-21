@@ -53,7 +53,7 @@ func main() {
 			}
 		}()
 
-		endpoint.Serve(func(in edgex.Message) []byte {
+		endpoint.Serve(func(in edgex.Message) (out []byte, act []byte) {
 			unionId := in.UnionId()
 			eventId := in.EventId()
 			log.Debugf("接收到RPC控制指令: UnionId= %s, EventId= %d", unionId, eventId)
@@ -65,15 +65,15 @@ func main() {
 			script.Push(lua.LString(string(in.Body())))
 			// Call
 			if err := script.PCall(3, 2, nil); nil != err {
-				return []byte("EX=ERR:" + err.Error())
+				return []byte("EX=ERR:" + err.Error()), edgex.ActionNOP
 			} else {
 				retData := script.ToString(1)
 				retErr := script.ToString(2)
 				script.Pop(2)
 				if "" != retErr {
-					return []byte("EX=ERR:" + retErr)
+					return []byte("EX=ERR:" + retErr), edgex.ActionNOP
 				} else {
-					return []byte("EX=OK:" + retData)
+					return []byte("EX=OK:" + retData), edgex.ActionNOP
 				}
 			}
 		})
