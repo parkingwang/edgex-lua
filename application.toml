@@ -1,5 +1,6 @@
-NodeId = "EXN-TEST"
-GroupId = "HIK"
+NodeId = "EXN-HIK"
+BoardId = "IP1.4"
 MajorId = "001"
+DeviceType = "camera"
 
 Script = "sample-endpoint.lua"
