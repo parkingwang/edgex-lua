@@ -1,7 +1,7 @@
 github.com/BurntSushi/toml v0.3.1 h1:WXkYYl6Yr3qBf1K79EBnL4mak0OimBfB0XUf9Vl28OQ=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
-github.com/beinan/fastid v0.0.0-20190107221622-c03a08f42c37 h1:rSuHvLPNSp8jbVJIE9QQPLvSZYVggKW4USjfb0VkC+0=
-github.com/beinan/fastid v0.0.0-20190107221622-c03a08f42c37/go.mod h1:5F6Scwr/wWMF4yIjIDmK2iIkC6hZ1c8rUL3v8R9sJTA=
+github.com/bwmarrin/snowflake v0.3.0 h1:xm67bEhkKh6ij1790JB83OujPR5CzNe8QuQqAgISZN0=
+github.com/bwmarrin/snowflake v0.3.0/go.mod h1:NdZxfVWX+oR6y2K0o6qAYv6gIOP9rjG0/E9WsDpxqwE=
 github.com/chzyer/logex v1.1.10/go.mod h1:+Ywpsq7O8HXn0nuIou7OrIPyXbp3wmkHB+jjWRnGsAI=
 github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e/go.mod h1:nSuG5e5PlCu98SY8svDHJxuZscDgtXS6KTTbou5AhLI=
 github.com/chzyer/test v0.0.0-20180213035817-a1ea475d72b1/go.mod h1:Q3SI9o4m/ZMnBNeIyt5eFwwo7qiLfzFZmjNmxjkiQlU=
@@ -9,8 +9,8 @@ github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/eclipse/paho.mqtt.golang v1.2.0 h1:1F8mhG9+aO5/xpdtFkW4SxOJB67ukuDC3t2y2qayIX0=
 github.com/eclipse/paho.mqtt.golang v1.2.0/go.mod h1:H9keYFcgq3Qr5OUJm/JZI/i6U7joQ8SYLhZwfeOo6Ts=
-github.com/nextabc-lab/edgex-go v0.9.1 h1:mzZG6Dl/PIw+loXd1MF2W6sEQp9ZGxSPyyc+n1s3XPU=
-github.com/nextabc-lab/edgex-go v0.9.1/go.mod h1:NF4kX0o+fc5f/kw2tXhJuIiDqxp6ZukJ3c4XhOBzFTc=
+github.com/nextabc-lab/edgex-go v0.9.5 h1:t2L96n6fVfQQaTMXUUiGiMS2Hqt1Q8NoGxmvpXO8TUw=
+github.com/nextabc-lab/edgex-go v0.9.5/go.mod h1:6LWpz+maSBddK3+uUnJtbd9JepMM0uhbhaS0Lz6ibxg=
 github.com/pkg/errors v0.8.1 h1:iURUrRGxPUNPdy5/HRSm+Yj6okJ6UtLINN0Q9M4+h3I=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
