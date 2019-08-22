@@ -3,7 +3,7 @@ BINARY?=$(shell cat name.txt)
 # Build opts
 BUILD_ENV?=CGO_ENABLED=0 GOOS=${GOOS} GOARCH=${GOARCH}
 
-IMAGE_VER?=0.6.0
+IMAGE_VER?=latest
 IMAGE_ORG=registry.cn-shenzhen.aliyuncs.com/edge-x
 
 IMAGE_FROM_PLATFORM=${OSARCH}/alpine
